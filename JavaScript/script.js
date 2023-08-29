@@ -1,0 +1,1 @@
+let link = "https://openapi.programming-hero.com/api/ai/tools"
