@@ -1,16 +1,30 @@
 let link = "https://openapi.programming-hero.com/api/ai/tools";
 
-let loadData = async () => {
+let loadData = async (isShowAll) => {
     let res = await fetch(`https://openapi.programming-hero.com/api/ai/tools`);
     let data = await res.json();
     let AI = data.data.tools;
     console.log(AI);
-    ShowAI(AI);
+    ShowAI(AI,isShowAll);
 }
 
-let ShowAI = (tools) => {
+let ShowAI = (tools,isShowAll) => {
     let container = document.getElementById("container")
     container.textContent = '';
+
+    if (tools.length > 6 && !isShowAll) {
+        document.getElementById("showAll").classList.remove("hidden");
+    }
+    else {
+        document.getElementById("showAll").classList.add("hidden");
+    }
+
+    // Slice to 6 card
+    if (!isShowAll) {
+        tools = tools.slice(0, 6);
+    }
+
+
 
     container.classList = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
     tools.forEach(tools => {
@@ -34,5 +48,8 @@ let ShowAI = (tools) => {
         container.appendChild(AICard);
     });
 
+}
+let ShowAll = () => {
+    loadData(true);
 }
 loadData();
