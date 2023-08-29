@@ -12,7 +12,7 @@ let ShowAI = (tools) => {
     let container = document.getElementById("container")
     container.textContent = '';
 
-    container.classList = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+    container.classList = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
     tools.forEach(tools => {
         let AICard = document.createElement("div")
         AICard.innerHTML = `
