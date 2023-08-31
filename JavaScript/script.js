@@ -4,11 +4,24 @@ let loadData = async (isShowAll) => {
     let res = await fetch(`https://openapi.programming-hero.com/api/ai/tools`);
     let data = await res.json();
     let AI = data.data.tools;
-    console.log(AI);
-    ShowAI(AI,isShowAll);
+    ShowAI(AI, isShowAll);
+}
+ function Sort(isShowAll) {
+    let loadData2 = async () => {
+        let res = await fetch(`https://openapi.programming-hero.com/api/ai/tools`);
+        let data = await res.json();
+        let AI = data.data.tools;
+        let aiTools = AI.sort(byDate)
+        console.log(aiTools);
+        ShowAI(aiTools,isShowAll);
+    }
+    loadData2();
+    function byDate(a, b) {
+        return new Date(a.published_in).valueOf() - new Date(b.published_in).valueOf();
+    }
 }
 
-let ShowAI = (tools,isShowAll) => {
+let ShowAI = (tools, isShowAll) => {
     let container = document.getElementById("container")
     container.textContent = '';
 
@@ -35,9 +48,9 @@ let ShowAI = (tools,isShowAll) => {
         <div class="card-body">
             <p class="font-semibold text-lg">Features</p>
             <ol>
-            <li>${"1. "+tools.features[0]}</li>
-            <li>${"1. "+tools.features[1]}</li>
-            <li>${"1. "+tools.features[2]}</li>
+            <li>${"1. " + tools.features[0]}</li>
+            <li>${"1. " + tools.features[1]}</li>
+            <li>${"1. " + tools.features[2]}</li>
             <ol>
             <br>
             <hr>
@@ -46,10 +59,14 @@ let ShowAI = (tools,isShowAll) => {
         </div>
       </div>`;
         container.appendChild(AICard);
+        console.log(tools);
     });
 
 }
 let ShowAll = () => {
     loadData(true);
+    Sort(true)
+    
 }
 loadData();
+
